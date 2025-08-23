@@ -4,201 +4,388 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <meta name="theme-color" content="#1c1c1c">
-  <title>Stream</title>
+  <title>Alex Star</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
-    body {
+    * {
       margin: 0;
+      padding: 0;
+      box-sizing: border-box;
       font-family: 'Inter', sans-serif;
-      background: linear-gradient(135deg, #0f0f0f, #1c1c1c);
+    }
+
+    body {
+      background-color: #0a0a0a;
       color: white;
+      overflow-x: hidden;
+      min-height: 100vh;
     }
-    .container {
-      max-width: 1200px;
-      margin: auto;
-      padding: 20px;
+
+    #particles-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: -1;
+      pointer-events: none;
     }
+
+    .video-section {
+      text-align: center;
+      margin-top: 2rem;
+    }
+
+    .section-heading {
+      text-align: center;
+      font-size: 2.5rem;
+      color: white;
+      font-weight: bold;
+      position: relative;
+      display: inline-block;
+      margin: 2rem auto 1rem;
+    }
+
+    .section-heading::after {
+      content: "";
+      display: block;
+      height: 5px;
+      width: 60%;
+      margin: 0.5rem auto 0;
+      background-color: #00d2fc;
+      border-radius: 10px;
+    }
+
     .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2rem;
+      padding: 0 1rem;
     }
+
     .card {
-      background: rgba(255, 255, 255, 0.05);
-      border-radius: 16px;
-      overflow: hidden;
-      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      transition: transform 0.3s ease;
+      max-width: 320px;
+      flex: 1 1 300px;
+      background-color: #1c1c1c;
+      padding: 1rem;
+      border-radius: 0.75rem;
+      text-align: center;
+      border: 2px solid transparent;
+      opacity: 1;
+      transform: scale(1);
+      pointer-events: auto;
+      user-select: none;
+      transition: transform 0.3s ease, box-shadow 0.3s ease, border 0.3s ease;
     }
+
     .card:hover {
-      transform: translateY(-5px);
+      transform: scale(1.05);
+      box-shadow: 0 0 20px #00d2fc;
+      border: 2px solid #00d2fc;
     }
+
     .card img {
       width: 100%;
-      height: 180px;
+      height: 160px;
       object-fit: cover;
+      border-radius: 0.5rem;
+      margin-bottom: 1rem;
+      pointer-events: none;
+      background-color: #000;
     }
-    .card-content {
-      padding: 15px;
+
+    .card img::selection {
+      background: none;
     }
+
     .card h3 {
-      margin: 0 0 10px 0;
-      font-size: 18px;
-      font-weight: 600;
+      font-size: 1.2rem;
+      margin-bottom: 0.8rem;
     }
-    .btn {
-      display: inline-block;
-      padding: 10px 16px;
-      border-radius: 12px;
-      background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      color: white;
-      font-weight: 600;
-      text-decoration: none;
-      transition: 0.3s ease;
-    }
-    .btn:hover {
-      background: rgba(255, 255, 255, 0.2);
-    }
-    .pagination {
-      margin-top: 20px;
-      text-align: center;
-    }
-    .pagination button {
-      margin: 0 5px;
-      padding: 8px 14px;
-      border-radius: 10px;
-      background: rgba(255,255,255,0.1);
-      border: 1px solid rgba(255,255,255,0.2);
-      color: white;
+
+    .card button {
+      padding: 0.8rem;
+      width: 100%;
+      font-size: 1rem;
+      font-weight: bold;
+      background: linear-gradient(to right, #00d2fc, #00d2fc);
+      color: black;
+      border: none;
+      border-radius: 0.5rem;
       cursor: pointer;
-      font-weight: 600;
-      backdrop-filter: blur(10px);
+      transition: background 0.3s ease;
     }
+
+    .card button:hover {
+      background: linear-gradient(to right, #00d2fc, #00d2fc);
+    }
+
+    .pagination {
+      text-align: center;
+      margin: 2rem auto;
+    }
+
+    .pagination button {
+      background: #333;
+      color: white;
+      padding: 0.5rem 1rem;
+      border: 1px solid #555;
+      margin: 0 0.2rem;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
     .pagination button.active {
-      background: rgba(255,255,255,0.3);
+      background: #00d2fc;
+      color: black;
+      font-weight: bold;
     }
-    /* Skeleton Loader with Glassmorphism */
-    .skeleton-card {
-      background: rgba(255, 255, 255, 0.05);
-      border-radius: 16px;
-      overflow: hidden;
-      position: relative;
-      height: 260px;
-      box-shadow: 0 4px 30px rgba(0,0,0,0.5);
+
+    /* ✅ Skeleton Loader with Glassmorphism */
+    .skeleton {
+      max-width: 320px;
+      flex: 1 1 300px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 0.75rem;
+      padding: 1rem;
+      text-align: center;
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+      animation: pulse 1.5s infinite ease-in-out;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
-    .skeleton-img {
-      height: 180px;
-      background: rgba(255, 255, 255, 0.1);
-    }
-    .skeleton-text {
-      height: 20px;
-      width: 60%;
-      margin: 15px;
-      border-radius: 8px;
+
+    .skeleton .img {
+      width: 100%;
+      height: 160px;
+      border-radius: 0.5rem;
       background: rgba(255,255,255,0.1);
+      margin-bottom: 1rem;
     }
-    .skeleton-btn {
-      height: 36px;
-      width: 100px;
-      margin: 15px;
-      border-radius: 12px;
+
+    .skeleton .button {
+      width: 100%;
+      height: 40px;
+      border-radius: 0.5rem;
       background: rgba(255,255,255,0.15);
-      border: 1px solid rgba(255,255,255,0.2);
+      border: 1px solid rgba(255,255,255,0.3);
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
     }
-    @keyframes shimmer {
-      0% { background-position: -200px 0; }
-      100% { background-position: 200px 0; }
+
+    .floating-contact {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: linear-gradient(45deg, #00d2fc, #007bff);
+      color: #fff;
+      padding: 0.75rem 1.2rem;
+      font-weight: bold;
+      font-size: 1rem;
+      border-radius: 50px;
+      text-decoration: none;
+      box-shadow: 0 4px 12px rgba(0, 210, 252, 0.5);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      z-index: 999;
+    }
+    .floating-contact:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 16px rgba(0, 210, 252, 0.8);
+      background: linear-gradient(45deg, #007bff, #00d2fc);
+    }
+
+    @keyframes pulse {
+      0% { opacity: 1; }
+      50% { opacity: 0.5; }
+      100% { opacity: 1; }
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <div id="postContainer" class="grid"></div>
-    <div class="pagination" id="pagination"></div>
+  <canvas id="particles-bg"></canvas>
+  <a href="mailto:alexstarlinks@outlook.com" class="floating-contact">✉️ Contact</a>
+
+  <!-- All Videos Section -->
+  <div class="video-section">
+    <h2 class="section-heading">All Videos</h2><br><br>
   </div>
+  <section class="grid" id="postGrid"></section>
+  <div class="pagination" id="pagination"></div>
 
-  <script>
-    const postContainer = document.getElementById("postContainer");
-    const pagination = document.getElementById("pagination");
+  <!-- Disclaimer Footer -->
+  <footer style="margin: 3rem auto; max-width: 90%; background: rgba(255,255,255,0.05); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1); border-radius: 1rem; padding: 2rem; text-align: center; color: #e0e0e0; font-size: 1rem; box-shadow: 0 0 20px rgba(0,210,252,0.2);">
+    <p style="margin: 0;">
+      ⚠️ <strong>Disclaimer:</strong><br>
+      All videos featured on this site are sourced from external platforms 🌐. We do not host or own any of the content. If you believe your rights have been infringed, or wish to request removal, please contact us 📩 at<br>
+      <a href="mailto:alexstarlinks@outlook.com" style="color: #00d2fc; text-decoration: underline; font-weight: bold;">alexstarlinks@outlook.com</a>
+    </p>
+  </footer>
 
-    const postsPerPage = 6;
-    let currentPage = parseInt(localStorage.getItem("currentPage")) || 1;
-    let posts = [];
+<script>
+  const postsPerPage = 10;
+  let allPosts = [];
 
-    async function fetchPosts() {
-      showSkeletons();
-      try {
-        const response = await fetch("posts.json"); // JSON file instead of Sheets
-        posts = await response.json();
-        renderPosts();
-        renderPagination();
-      } catch (error) {
-        console.error("Error fetching posts:", error);
-      }
-    }
+  function getCookie(name) {
+    const v = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
+    return v ? v[2] : null;
+  }
 
-    function showSkeletons() {
-      postContainer.innerHTML = "";
-      for (let i = 0; i < postsPerPage; i++) {
-        const skeleton = document.createElement("div");
-        skeleton.className = "skeleton-card";
-        skeleton.innerHTML = `
-          <div class="skeleton-img"></div>
-          <div class="skeleton-text"></div>
-          <div class="skeleton-btn"></div>
-        `;
-        postContainer.appendChild(skeleton);
-      }
-    }
+  const skeletonKey = 'skeletonLastShown';
+  const now = Date.now();
+  const lastShown = localStorage.getItem(skeletonKey);
+  const showSkeleton = !lastShown || now - parseInt(lastShown) > 86400000;
 
-    function renderPosts() {
-      postContainer.innerHTML = "";
-      const start = (currentPage - 1) * postsPerPage;
-      const end = start + postsPerPage;
-      const paginatedPosts = posts.slice(start, end);
+  if (showSkeleton) {
+    showSkeletons();
+    localStorage.setItem(skeletonKey, now.toString());
+  }
 
-      paginatedPosts.forEach(post => {
-        const card = document.createElement("div");
-        card.className = "card";
-        card.innerHTML = `
-          <img src="${post.image}" alt="${post.title}">
-          <div class="card-content">
-            <h3>${post.title}</h3>
-            <a href="${post.url}" class="btn">Watch</a>
-          </div>
-        `;
-        postContainer.appendChild(card);
-      });
-    }
-
-    function renderPagination() {
-      pagination.innerHTML = "";
-      const pageCount = Math.ceil(posts.length / postsPerPage);
-
-      for (let i = 1; i <= pageCount; i++) {
-        const btn = document.createElement("button");
-        btn.textContent = i;
-        if (i === currentPage) btn.classList.add("active");
-        btn.onclick = () => {
-          currentPage = i;
-          localStorage.setItem("currentPage", currentPage);
-          renderPosts();
+  // ✅ Load posts from JSON
+  fetch("posts.json")
+    .then(res => res.json())
+    .then(data => {
+      allPosts = data.map((post, index) => ({
+        id: `post-${index}`,
+        title: post.title || "Untitled",
+        imageUrl: post.imageUrl || "",
+        watchUrl: post.watchUrl || "#"
+      }));
+      if (showSkeleton) {
+        setTimeout(() => {
+          removeSkeletons();
           renderPagination();
-        };
-        pagination.appendChild(btn);
+          renderPosts(1);
+        }, 1000);
+      } else {
+        removeSkeletons();
+        renderPagination();
+        renderPosts(1);
       }
+    });
+
+  function showSkeletons() {
+    const grid = document.getElementById('postGrid');
+    for (let i = 0; i < postsPerPage; i++) {
+      const skeleton = document.createElement('div');
+      skeleton.className = 'skeleton';
+      skeleton.innerHTML = `
+        <div class="img"></div>
+        <div class="button"></div>
+      `;
+      grid.appendChild(skeleton);
+    }
+  }
+
+  function removeSkeletons() {
+    document.getElementById('postGrid').innerHTML = '';
+  }
+
+  function renderPosts(page) {
+    const grid = document.getElementById('postGrid');
+    grid.innerHTML = '';
+    const start = (page - 1) * postsPerPage;
+    const end = start + postsPerPage;
+    const pagePosts = allPosts.slice(start, end);
+
+    pagePosts.forEach(post => {
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.setAttribute('data-post-id', post.id);
+      card.innerHTML = `
+        <img src="${post.imageUrl}" alt="${post.title}" oncontextmenu="return false;" draggable="false" loading="lazy" decoding="async"/>
+        <h3>${post.title}</h3>
+        <button onclick="handleWatchClick('${encodeURIComponent(post.watchUrl)}', '${encodeURIComponent(post.title)}')">Watch</button>
+      `;
+      grid.appendChild(card);
+    });
+  }
+
+  function handleWatchClick(encodedUrl, encodedTitle) {
+    const verified = getCookie('verified_access');
+    if (verified === 'true') {
+      window.open(`stream.html?url=${encodedUrl}&title=${encodedTitle}`, '_blank');
+    } else {
+      window.location.href = `verify.html?url=${encodedUrl}&title=${encodedTitle}`;
+    }
+  }
+
+  function renderPagination() {
+    const pagination = document.getElementById('pagination');
+    const totalPages = Math.ceil(allPosts.length / postsPerPage);
+    pagination.innerHTML = '';
+
+    for (let i = 1; i <= totalPages; i++) {
+      const btn = document.createElement('button');
+      btn.textContent = i;
+      btn.addEventListener('click', () => {
+        renderPosts(i);
+        document.querySelectorAll('.pagination button').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+      });
+      if (i === 1) btn.classList.add('active');
+      pagination.appendChild(btn);
+    }
+  }
+
+  // Particles
+  const canvas = document.getElementById('particles-bg');
+  const ctx = canvas.getContext('2d');
+  let particles = [];
+
+  function resize() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+
+  window.addEventListener('resize', resize);
+  resize();
+
+  class Particle {
+    constructor() {
+      this.x = Math.random() * canvas.width;
+      this.y = Math.random() * canvas.height;
+      this.radius = Math.random() * 2;
+      this.speedX = (Math.random() - 0.5) * 0.7;
+      this.speedY = (Math.random() - 0.5) * 0.7;
     }
 
-    fetchPosts();
-  </script>
+    draw() {
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+      ctx.fillStyle = 'white';
+      ctx.fill();
+    }
+
+    update() {
+      this.x += this.speedX;
+      this.y += this.speedY;
+      if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+      if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+    }
+  }
+
+  function initParticles() {
+    particles = [];
+    for (let i = 0; i < 150; i++) {
+      particles.push(new Particle());
+    }
+  }
+
+  function animateParticles() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    particles.forEach(p => {
+      p.update();
+      p.draw();
+    });
+    requestAnimationFrame(animateParticles);
+  }
+
+  initParticles();
+  animateParticles();
+</script>
 </body>
 </html>
