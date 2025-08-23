@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <meta name="theme-color" content="#1c1c1c">
@@ -57,16 +57,24 @@
     }
 
     .grid {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
       gap: 2rem;
-      padding: 0 1rem;
+      padding: 0 2rem;
     }
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+  padding: 0 1rem;
+}
 
+.card {
+  max-width: 320px;
+  flex: 1 1 300px;
+}
     .card {
-      max-width: 320px;
-      flex: 1 1 300px;
       background-color: #1c1c1c;
       padding: 1rem;
       border-radius: 0.75rem;
@@ -85,15 +93,15 @@
       border: 2px solid #00d2fc;
     }
 
-    .card img {
-      width: 100%;
-      height: 160px;
-      object-fit: cover;
-      border-radius: 0.5rem;
-      margin-bottom: 1rem;
-      pointer-events: none;
-      background-color: #000;
-    }
+.card img {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 0.5rem;
+  margin-bottom: 1rem;
+  pointer-events: none;
+  background-color: #000;
+}
 
     .card img::selection {
       background: none;
@@ -121,6 +129,13 @@
       background: linear-gradient(to right, #00d2fc, #00d2fc);
     }
 
+    .footer {
+      text-align: center;
+      color: #aaa;
+      margin: 4rem 1rem 2rem;
+      font-size: 0.9rem;
+    }
+
     .pagination {
       text-align: center;
       margin: 2rem auto;
@@ -142,63 +157,60 @@
       font-weight: bold;
     }
 
-    /* ✅ Skeleton Loader with Glassmorphism */
     .skeleton {
-      max-width: 320px;
-      flex: 1 1 300px;
-      background: rgba(255,255,255,0.05);
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
       border-radius: 0.75rem;
       padding: 1rem;
       text-align: center;
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
       animation: pulse 1.5s infinite ease-in-out;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
     }
 
-    .skeleton .img {
-      width: 100%;
-      height: 160px;
-      border-radius: 0.5rem;
+.card img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 0.5rem;
+  margin-bottom: 1rem;
+  pointer-events: none;
+  background-color: #000;
+}
+
+    .skeleton .title {
+      height: 20px;
+      width: 80%;
       background: rgba(255,255,255,0.1);
-      margin-bottom: 1rem;
+      margin: 0 auto 1rem;
+      border-radius: 0.4rem;
     }
 
     .skeleton .button {
-      width: 100%;
       height: 40px;
+      width: 100%;
+      background: rgba(255,255,255,0.1);
       border-radius: 0.5rem;
-      background: rgba(255,255,255,0.15);
-      border: 1px solid rgba(255,255,255,0.3);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
     }
-
     .floating-contact {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background: linear-gradient(45deg, #00d2fc, #007bff);
-      color: #fff;
-      padding: 0.75rem 1.2rem;
-      font-weight: bold;
-      font-size: 1rem;
-      border-radius: 50px;
-      text-decoration: none;
-      box-shadow: 0 4px 12px rgba(0, 210, 252, 0.5);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      z-index: 999;
-    }
-    .floating-contact:hover {
-      transform: scale(1.1);
-      box-shadow: 0 6px 16px rgba(0, 210, 252, 0.8);
-      background: linear-gradient(45deg, #007bff, #00d2fc);
-    }
-
-    @keyframes pulse {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: linear-gradient(45deg, #00d2fc, #007bff);
+  color: #fff;
+  padding: 0.75rem 1.2rem;
+  font-weight: bold;
+  font-size: 1rem;
+  border-radius: 50px;
+  text-decoration: none;
+  box-shadow: 0 4px 12px rgba(0, 210, 252, 0.5);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  z-index: 999;
+}
+.floating-contact:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 16px rgba(0, 210, 252, 0.8);
+  background: linear-gradient(45deg, #007bff, #00d2fc);
+}
+   @keyframes pulse {
       0% { opacity: 1; }
       50% { opacity: 0.5; }
       100% { opacity: 1; }
@@ -209,21 +221,22 @@
   <canvas id="particles-bg"></canvas>
   <a href="mailto:alexstarlinks@outlook.com" class="floating-contact">✉️ Contact</a>
 
-  <!-- All Videos Section -->
-  <div class="video-section">
-    <h2 class="section-heading">All Videos</h2><br><br>
-  </div>
-  <section class="grid" id="postGrid"></section>
-  <div class="pagination" id="pagination"></div>
 
-  <!-- Disclaimer Footer -->
-  <footer style="margin: 3rem auto; max-width: 90%; background: rgba(255,255,255,0.05); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1); border-radius: 1rem; padding: 2rem; text-align: center; color: #e0e0e0; font-size: 1rem; box-shadow: 0 0 20px rgba(0,210,252,0.2);">
-    <p style="margin: 0;">
-      ⚠️ <strong>Disclaimer:</strong><br>
-      All videos featured on this site are sourced from external platforms 🌐. We do not host or own any of the content. If you believe your rights have been infringed, or wish to request removal, please contact us 📩 at<br>
-      <a href="mailto:alexstarlinks@outlook.com" style="color: #00d2fc; text-decoration: underline; font-weight: bold;">alexstarlinks@outlook.com</a>
-    </p>
-  </footer>
+<!-- All Videos Section -->
+<div class="video-section">
+  <h2 class="section-heading">All Videos</h2><br><br>
+</div>
+<section class="grid" id="postGrid"></section>
+<div class="pagination" id="pagination"></div>
+
+<!-- Disclaimer Footer -->
+<footer style="margin: 3rem auto; max-width: 90%; background: rgba(255,255,255,0.05); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1); border-radius: 1rem; padding: 2rem; text-align: center; color: #e0e0e0; font-size: 1rem; box-shadow: 0 0 20px rgba(0,210,252,0.2);">
+  <p style="margin: 0;">
+    ⚠️ <strong>Disclaimer:</strong><br>
+    All videos featured on this site are sourced from external platforms 🌐. We do not host or own any of the content. If you believe your rights have been infringed, or wish to request removal, please contact us 📩 at<br>
+    <a href="mailto:alexstarlinks@outlook.com" style="color: #00d2fc; text-decoration: underline; font-weight: bold;">alexstarlinks@outlook.com</a>
+  </p>
+</footer>
 
 <script>
   const postsPerPage = 10;
@@ -244,7 +257,7 @@
     localStorage.setItem(skeletonKey, now.toString());
   }
 
-  // ✅ Load posts from JSON
+  // ✅ Fetch posts from JSON instead of Google Sheets
   fetch("posts.json")
     .then(res => res.json())
     .then(data => {
@@ -259,7 +272,7 @@
           removeSkeletons();
           renderPagination();
           renderPosts(1);
-        }, 1000);
+        }, 3000);
       } else {
         removeSkeletons();
         renderPagination();
@@ -274,6 +287,7 @@
       skeleton.className = 'skeleton';
       skeleton.innerHTML = `
         <div class="img"></div>
+        <div class="title"></div>
         <div class="button"></div>
       `;
       grid.appendChild(skeleton);
@@ -331,7 +345,6 @@
     }
   }
 
-  // Particles
   const canvas = document.getElementById('particles-bg');
   const ctx = canvas.getContext('2d');
   let particles = [];
@@ -386,6 +399,7 @@
 
   initParticles();
   animateParticles();
+  
 </script>
 </body>
 </html>
