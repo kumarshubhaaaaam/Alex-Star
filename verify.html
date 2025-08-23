@@ -104,7 +104,7 @@
 
     const verifiedUntil = localStorage.getItem(accessKey);
     if (verifiedUntil && Date.now() < Number(verifiedUntil)) {
-      window.location.href = `https://alexstar.netlify.app//access-granted.html?url=${encodeURIComponent(url)}&title=${encodeURIComponent(title || "")}`;
+      window.location.href = `https://alexstarlinks.netlify.app//access-granted.html?url=${encodeURIComponent(url)}&title=${encodeURIComponent(title || "")}`;
     }
 
     async function generateAdLink() {
@@ -113,7 +113,7 @@
         return;
       }
 
-      const finalRedirect = `https://alexstar.netlify.app//access-granted.html?url=${encodeURIComponent(url)}&title=${encodeURIComponent(title || "")}`;
+      const finalRedirect = `https://alexstarlinks.netlify.app//access-granted.html?url=${encodeURIComponent(url)}&title=${encodeURIComponent(title || "")}`;
       const apiToken = '19b9d746e13ad153e0dd80c5669d57676239f33a';
       const shortUrlApi = `https://gplinks.com/api?api=${apiToken}&url=${encodeURIComponent(finalRedirect)}`;
 
